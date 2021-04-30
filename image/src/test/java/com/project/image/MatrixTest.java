@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import com.project.image.matrix.Matrix;
-
+import org.apache.commons.*;
 public class MatrixTest {
 	double[][] unevenMatrix = {
 			{1,2,3,4,5},
@@ -22,8 +22,6 @@ public class MatrixTest {
 	};
 	@Test
 	public void matrixTest() {
-		
-		Matrix matrix = new Matrix(4,4);
 		
 	}
 	
