@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import com.project.image.tiff.header.Properties;
-import com.project.image.tiff.header.Properties.ByteOrder;
+import com.project.image.properties.Properties;
+import com.project.image.properties.Properties.ByteOrder;
 
 public enum ByteReader {
 	INSTANCE;

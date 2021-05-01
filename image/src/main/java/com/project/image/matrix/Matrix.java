@@ -12,6 +12,14 @@ public class Matrix{
 		matrix.createMatrix(rowDimension , colDimension);
 	}
 	
+	public void setData(double[][] data) {
+		matrix.setSubMatrix(data, data.length, data[0].length);
+	}
+	
+	public void setData(double data, int row , int col) {
+		matrix.setEntry( row, col, data);
+	}
+	
 	public double[][] getData() {
 		return matrix.getData();
 	}
