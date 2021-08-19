@@ -45,7 +45,7 @@ public class Names {
 				intToName.put(name.getTagNumber(), name);
 			}
 		}
-		public static TagName nameOf(int value) {
+		public static TagName getNameOf(int value) {
 			return intToName.get(value);
 		}
 		

@@ -14,8 +14,9 @@ public class IFD{
 
 	public IFD(byte[] data, ByteBuffer buffer) {
 		numEntries = Conversion.toUnsignedInt(buffer.read(data,0,2));
-		for(int i = 2 ; i < data.length; i+=ENTRY_SIZE) {
-			//entryList.add(new Entry(read(data , i , i+ENTRY_SIZE)));
+		for(int index = 2 ; index < data.length; index+=ENTRY_SIZE) {
+			byte[] currentData = buffer.read(data , index , index+ENTRY_SIZE);
+			//entryList.add();
 		}
 	}
 }
