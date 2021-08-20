@@ -19,6 +19,10 @@ public class Conversion {
 	public static Long toUnsigedLong(byte[] data) { // 2 bytes long
 		return new BigInteger(data).longValue();
 	}
+	
+	public static String toHexString(byte[] data) {
+		return new BigInteger(1, data).toString(16);
+	}
 
 	/*
 	 * public static char toASCII() { // 7 bits long, 8th bit is 0(NUL); return 'a';

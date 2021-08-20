@@ -4,6 +4,16 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+class TagImpl implements Tag{
+	int value;
+	public int getValue() {
+		return value;
+	}
+	public TagImpl(int value) {
+		this.value = value;
+	}
+}
+
 public class TagsEntry {
 	public enum Compression implements Tag{
 		NONE(1),
@@ -51,6 +61,21 @@ public class TagsEntry {
 		}
 	}
 	
+	public enum ResolutionUnit implements Tag {
+		VARY(1),
+		INCH(2),
+		CENTIMETER(3);
+		private Tag tag;
+		public static Map<Integer, Tag> iToTag = Collections.unmodifiableMap(buildMap(Compression.values()));
+		private ResolutionUnit(int value) {
+			tag = new TagImpl(value);
+		}
+		public int getValue() {
+		    return tag.getValue();
+		}
+	}
+	//For ImageWidth, return the instance of ImageWidth class.
+	
 	static Map<Integer,Tag> buildMap(Tag[] tagEntry){
 		HashMap<Integer, Tag> iToTag = new HashMap<Integer, Tag>();
 		for(Tag t : tagEntry) {
@@ -59,4 +84,5 @@ public class TagsEntry {
 		return iToTag;
 	}
 }
+
 

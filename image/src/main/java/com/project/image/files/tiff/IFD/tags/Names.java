@@ -1,5 +1,6 @@
 package com.project.image.files.tiff.IFD.tags;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,14 +40,14 @@ public class Names {
 		COLOR_MAP(320),
 		EXTRA_SAMPLES(338);
 		
-		private static Map<Integer, TagName> intToName = new HashMap<Integer, TagName>();
+		private static Map<Integer, TagName> iToName = new HashMap<Integer, TagName>();
 		static {
 			for(TagName name : TagName.values()) {
-				intToName.put(name.getTagNumber(), name);
+				iToName.put(name.getTagNumber(), name);
 			}
 		}
-		public static TagName getNameOf(int value) {
-			return intToName.get(value);
+		public static TagName iToName(int value) {
+			return iToName.get(value);
 		}
 		
 		private int tagNumber;
