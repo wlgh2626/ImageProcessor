@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 import com.project.image.files.ByteBufferReader;
 import com.project.image.files.ByteBufferReader.ByteOrder;
-import com.project.image.files.Conversion;
+import com.project.image.files.Convert;
 import com.project.image.files.Properties.FileType;
 
 public class Header{
@@ -20,7 +20,7 @@ public class Header{
 
 	public Header(byte[] header) throws Exception { // Read the 8 bytes long TIFF header
 		byteOrder = Arrays.copyOfRange(header, 0, 2).equals(BIG_ENDIAN_VALUE) ? ByteOrder.BIG_ENDIAN : ByteOrder.LITTLE_ENDIAN;
-		bufferReader = new ByteBufferReader(byteOrder);	
+		bufferReader = ByteBufferReader.ByteBufferReader(byteOrder);	
 		
 		fileType = Arrays.equals(bufferReader.read(header, 2, 4), TIFF_VALUE) ? FileType.TIFF : FileType.UNKNOWN;
 		validateFileType();
