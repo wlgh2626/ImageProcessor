@@ -4,6 +4,8 @@ import java.util.Arrays;
 
 import com.project.image.files.ByteBufferReader;
 import com.project.image.files.Convert;
+import com.project.image.files.tiff.IFD.tags.ImageFileDirectory;
+import com.project.image.files.tiff.IFD.tags.TagNames.TagName;
 import com.project.image.files.tiff.image.Image;
 
 public class Tiff{
@@ -17,9 +19,10 @@ public class Tiff{
 		
 		int begin = header.getOffset();
 		int numEntries = Convert.toUnsignedInt(reader.read(data, begin, begin+2));
-		int end = (numEntries * ImageFileDirectory.ENTRY_SIZE) + begin + 2;
+		int end = (numEntries * ImageFileDirectory.ENTRY_SIZE) + begin + 6;
 
-		ifd = new ImageFileDirectory(reader.read(data, begin, end));
+		ifd = new ImageFileDirectory(data , Arrays.copyOfRange(data, begin, end));
+		//ifd.getEntryList().fi
 	}
 	
 	public Header getHeader() {

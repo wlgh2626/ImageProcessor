@@ -1,10 +1,9 @@
-package com.project.image.files.tiff;
+package com.project.image.files.tiff.IFD.tags;
 
 import java.util.ArrayList;
 
 import com.project.image.files.ByteBufferReader;
 import com.project.image.files.Convert;
-import com.project.image.files.tiff.IFD.tags.Entry;
 
 public class ImageFileDirectory {
 	public static final int ENTRY_SIZE = 12;

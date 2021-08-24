@@ -3,7 +3,7 @@ package com.project.image;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import com.project.image.files.tiff.IFD.tags.TagsEntry.*;
+import com.project.image.files.tiff.IFD.tags.TagEntry.*;
 
 public class TagTest {
 	@Test
