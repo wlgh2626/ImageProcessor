@@ -2,21 +2,21 @@ package com.project.image.files.tiff.image;
 
 public class Image {
 	private int width;
-	private int height;
+	private int length;
 	public Image(ImageBuilder builder) {
 		width = builder.width;
-		height = builder.height;
+		length = builder.length;
 	}
 	
 	public static class ImageBuilder{
 		private int width;
-		private int height;
+		private int length;
 		public ImageBuilder width(int value) {
 			width = value;
 			return this;
 		}
-		public ImageBuilder height(int value) {
-			height = value;
+		public ImageBuilder length(int value) {
+			length = value;
 			return this;
 		}
 		public Image build() {

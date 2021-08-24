@@ -1,36 +1,50 @@
 package com.project.image.files.tiff;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
-import com.project.image.files.ByteBufferReader;
-import com.project.image.files.Convert;
-import com.project.image.files.tiff.IFD.tags.ImageFileDirectory;
-import com.project.image.files.tiff.IFD.tags.TagNames.TagName;
+import com.project.image.files.tiff.ifd.ImageFileDirectory;
+import com.project.image.files.tiff.ifd.TagNames.TagName;
 import com.project.image.files.tiff.image.Image;
+import com.project.image.files.util.BytesConverter;
 
-public class Tiff{
-	Header header;
-	Image image;
-	ImageFileDirectory ifd;
-	
+public class Tiff {
+	public static final String TIFF_DIRECTORY = System.getProperty("user.dir") + "/tiff";
+	private Header header;
+	private ArrayList<Image> imageList = new ArrayList<Image>();
+	private ArrayList<ImageFileDirectory> ifdList = new ArrayList<ImageFileDirectory>();
+	private final byte[] data;
+
 	public Tiff(byte[] data) throws Exception {
+		this.data = data;
 		header = new Header(Arrays.copyOfRange(data, 0, 8));
-		ByteBufferReader reader = ByteBufferReader.getInstance();
-		
-		int begin = header.getOffset();
-		int numEntries = Convert.toUnsignedInt(reader.read(data, begin, begin+2));
-		int end = (numEntries * ImageFileDirectory.ENTRY_SIZE) + begin + 6;
 
-		ifd = new ImageFileDirectory(data , Arrays.copyOfRange(data, begin, end));
-		//ifd.getEntryList().fi
+		ImageFileDirectory currentIFD;
+		Image currentImage;
+		do {
+			currentIFD = new ImageFileDirectory(data, header.getOffset());
+			currentImage = new Image.ImageBuilder()
+					.length(currentIFD.valueOf(TagName.IMAGE_LENGTH).get(0))
+					.width(currentIFD.valueOf(TagName.IMAGE_LENGTH).get(0))
+					.build();
+			
+			ifdList.add(currentIFD);
+			imageList.add(currentImage);
+		} while (currentIFD.getNextOffset() != 0);
+
 	}
+
 	
 	public Header getHeader() {
 		return header;
 	}
-	
-	public ImageFileDirectory getIFD() {
-		return ifd;
+
+	public ArrayList<ImageFileDirectory> getIFDList() {
+		return ifdList;
 	}
 	
+	public ArrayList<Image> getImageList(){
+		return imageList;
+	}
+
 }
