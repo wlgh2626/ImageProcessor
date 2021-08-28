@@ -13,19 +13,20 @@ public class ImageFileDirectory {
 
 	private HashMap<TagName, Entry> tagValue = new HashMap<TagName, Entry>();
 	private int numEntries;
-	private int nextOffset = 0; // NEXT IFD offset
+	private int nextOffset = 0;
 
-	public ImageFileDirectory(byte[] data, int beginIndex) {
-		int numEntries = BytesConverter.toUnsignedInt( ByteBufferReader.getInstance().read(data, beginIndex, beginIndex + 2));
-		int end = (numEntries * ImageFileDirectory.ENTRY_SIZE) + beginIndex + 6;
-		
-		byte[] IFDData = Arrays.copyOfRange(data, beginIndex, end);
-		for (int index = 2; index < IFDData.length - 4; index += ENTRY_SIZE) { // read 2 - 14 , 14 - 26 , 26 - 38 ...
-			byte[] currentData = ByteBufferReader.getInstance().read(IFDData, index, index + ENTRY_SIZE);
-			Entry entry = new Entry(data, currentData);
+	public ImageFileDirectory(byte[] data, int beginIndex, ByteBufferReader reader) {
+		int numEntries = BytesConverter.toUnsignedInt(reader.read(data, beginIndex, beginIndex + 2));
+
+		int end = (numEntries * ImageFileDirectory.ENTRY_SIZE) + beginIndex + 2;
+		byte[] IFDData = Arrays.copyOfRange(data, beginIndex + 2, end);
+		Entry.Builder entryBuilder = new Entry.Builder(data, reader);
+
+		for (int index = 0; index < IFDData.length; index += ENTRY_SIZE) {
+			Entry entry = entryBuilder.build(Arrays.copyOfRange(IFDData, index, index + ENTRY_SIZE));
 			tagValue.put(entry.getTagName(), entry);
 		}
-		nextOffset = toUInt(IFDData, IFDData.length - 4, IFDData.length); // last 4 bits of IFDData
+		nextOffset = BytesConverter.toUnsignedInt(reader.read(data, end, end + 4));
 	}
 
 	public ArrayList<Entry> getEntryList() {
@@ -40,11 +41,7 @@ public class ImageFileDirectory {
 		return numEntries;
 	}
 
-	public ArrayList<Integer> valueOf(TagName name) {
+	public ArrayList<Integer> tagToValue(TagName name) {
 		return tagValue.get(name).getValues();
-	}
-
-	private int toUInt(byte[] data, int begin, int end) {
-		return BytesConverter.toUnsignedInt(ByteBufferReader.getInstance().read(data, begin, end));
 	}
 }

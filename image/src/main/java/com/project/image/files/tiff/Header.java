@@ -14,20 +14,20 @@ public class Header {
 	ByteOrder byteOrder; // 0 - 1
 	FileType fileType; // 2 - 3
 	byte[] offset; // 4 - 7
-	ByteBufferReader bufferReader;
+	ByteBufferReader reader;
 
 	public Header(byte[] header) throws Exception { // Read the 8 bytes long TIFF header
 
 		byteOrder = Arrays.equals(Arrays.copyOfRange(header, 0, 2), BIG_ENDIAN_VALUE) ? ByteOrder.BIG_ENDIAN
 				: ByteOrder.LITTLE_ENDIAN;
-		ByteBufferReader.ByteBufferReader(byteOrder);
+		reader = new ByteBufferReader(byteOrder);
 
-		fileType = Arrays.equals(ByteBufferReader.getInstance().read(header, 2, 4), TIFF_VALUE) ? FileType.TIFF
+		fileType = Arrays.equals( reader.read(header, 2, 4), TIFF_VALUE) ? FileType.TIFF
 				: FileType.UNKNOWN;
 		if (!fileType.equals(FileType.TIFF)) {
 			throw new Exception("The given FileType is " + fileType + ". Only TIFF file is accepted");
 		}
-		offset = ByteBufferReader.getInstance().read(header, 4, 8);
+		offset = reader.read(header, 4, 8);
 	}
 
 	public FileType getFileType() {
@@ -40,6 +40,10 @@ public class Header {
 
 	public ByteOrder getByteOrder() {
 		return byteOrder;
+	}
+	
+	public ByteBufferReader getBufferReader() {
+		return reader;
 	}
 
 	@Override

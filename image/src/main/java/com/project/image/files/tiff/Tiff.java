@@ -6,7 +6,6 @@ import java.util.Arrays;
 import com.project.image.files.tiff.ifd.ImageFileDirectory;
 import com.project.image.files.tiff.ifd.TagNames.TagName;
 import com.project.image.files.tiff.image.Image;
-import com.project.image.files.util.BytesConverter;
 
 public class Tiff {
 	public static final String TIFF_DIRECTORY = System.getProperty("user.dir") + "/tiff";
@@ -22,19 +21,16 @@ public class Tiff {
 		ImageFileDirectory currentIFD;
 		Image currentImage;
 		do {
-			currentIFD = new ImageFileDirectory(data, header.getOffset());
-			currentImage = new Image.ImageBuilder()
-					.length(currentIFD.valueOf(TagName.IMAGE_LENGTH).get(0))
-					.width(currentIFD.valueOf(TagName.IMAGE_LENGTH).get(0))
-					.build();
-			
+			currentIFD = new ImageFileDirectory(data, header.getOffset(), header.getBufferReader());
+			currentImage = new Image.ImageBuilder().length(currentIFD.tagToValue(TagName.IMAGE_LENGTH).get(0))
+					.width(currentIFD.tagToValue(TagName.IMAGE_LENGTH).get(0)).build();
+
 			ifdList.add(currentIFD);
 			imageList.add(currentImage);
 		} while (currentIFD.getNextOffset() != 0);
 
 	}
 
-	
 	public Header getHeader() {
 		return header;
 	}
@@ -42,8 +38,8 @@ public class Tiff {
 	public ArrayList<ImageFileDirectory> getIFDList() {
 		return ifdList;
 	}
-	
-	public ArrayList<Image> getImageList(){
+
+	public ArrayList<Image> getImageList() {
 		return imageList;
 	}
 
