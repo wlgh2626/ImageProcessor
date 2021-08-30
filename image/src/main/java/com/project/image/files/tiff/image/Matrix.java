@@ -1,4 +1,4 @@
-package com.project.image.matrix;
+package com.project.image.files.tiff.image;
 
 import org.apache.commons.math3.linear.RealMatrix;
 

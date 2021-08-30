@@ -4,19 +4,24 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-class TagImpl implements Tag {
-	int value;
 
-	public int getValue() {
-		return value;
-	}
-
-	public TagImpl(int value) {
-		this.value = value;
-	}
-}
 
 public class TagEntry {
+	public static interface Tag {
+		public int getValue();
+	}
+	
+	public static class TagImpl implements Tag {
+		int value;
+
+		public int getValue() {
+			return value;
+		}
+
+		public TagImpl(int value) {
+			this.value = value;
+		}
+	}
 
 	public enum Compression implements Tag {
 		NONE(1), CCITT(2), PACKBITS(32773);

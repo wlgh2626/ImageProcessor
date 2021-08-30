@@ -3,6 +3,8 @@ package com.project.image.files.tiff;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+
+import com.project.image.files.tiff.header.Header;
 import com.project.image.files.tiff.ifd.ImageFileDirectory;
 import com.project.image.files.tiff.ifd.TagNames.TagName;
 import com.project.image.files.tiff.image.Image;

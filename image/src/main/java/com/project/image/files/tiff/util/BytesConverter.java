@@ -1,4 +1,4 @@
-package com.project.image.files.util;
+package com.project.image.files.tiff.util;
 
 import java.math.BigInteger;
 import java.util.Arrays;

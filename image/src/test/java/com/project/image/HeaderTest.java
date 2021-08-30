@@ -8,9 +8,9 @@ import java.util.Arrays;
 import org.junit.Test;
 
 import com.project.image.files.FileTypes.FileType;
-import com.project.image.files.tiff.ByteBufferReader;
-import com.project.image.files.tiff.Header;
-import com.project.image.files.tiff.ByteBufferReader.ByteOrder;
+import com.project.image.files.tiff.header.Header;
+import com.project.image.files.tiff.util.ByteBufferReader;
+import com.project.image.files.tiff.util.ByteBufferReader.ByteOrder;
 public class HeaderTest {
 	File balloonsFile = new File(System.getProperty("user.dir") + "/tiff/balloons.tif");
 	byte[] balloonsHeader = {

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import com.project.image.files.tiff.ByteBufferReader;
 import com.project.image.files.tiff.ifd.TagNames.TagName;
-import com.project.image.files.util.BytesConverter;
+import com.project.image.files.tiff.util.ByteBufferReader;
+import com.project.image.files.tiff.util.BytesConverter;
 
 public class ImageFileDirectory {
 	public static final int ENTRY_SIZE = 12;

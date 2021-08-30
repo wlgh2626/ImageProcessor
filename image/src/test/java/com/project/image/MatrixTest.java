@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.project.image.matrix.Matrix;
+import com.project.image.files.tiff.image.Matrix;
 public class MatrixTest {
 	double[][] unevenMatrix = {
 			{1,2,3,4,5},

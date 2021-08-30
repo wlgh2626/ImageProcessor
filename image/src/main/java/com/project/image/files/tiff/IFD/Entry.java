@@ -1,14 +1,15 @@
 package com.project.image.files.tiff.ifd;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.project.image.files.tiff.ByteBufferReader;
 import com.project.image.files.tiff.ifd.FieldTypes.FieldType;
 import com.project.image.files.tiff.ifd.TagNames.TagName;
-import com.project.image.files.util.BytesConverter;
+import com.project.image.files.tiff.util.ByteBufferReader;
+import com.project.image.files.tiff.util.BytesConverter;
 
 //TODO accept all Number class instead of only Integer
 public class Entry { // 12 bytes long
