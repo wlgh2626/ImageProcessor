@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.project.image.files.tiff.ifd.TagEntry.*;
+import com.project.image.files.tiff.ifd.Tags.*;
 
 public class TagTest {
 	@Test

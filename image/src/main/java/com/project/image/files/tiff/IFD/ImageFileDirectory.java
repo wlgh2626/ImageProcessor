@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import com.project.image.files.tiff.ifd.TagNames.TagName;
+import com.project.image.files.tiff.ifd.Tags.TagName;
 import com.project.image.files.tiff.util.ByteBufferReader;
 import com.project.image.files.tiff.util.BytesConverter;
 

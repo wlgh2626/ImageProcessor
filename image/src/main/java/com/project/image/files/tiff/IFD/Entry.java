@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.project.image.files.tiff.ifd.FieldTypes.FieldType;
-import com.project.image.files.tiff.ifd.TagNames.TagName;
+import com.project.image.files.tiff.ifd.Tags.FieldType;
+import com.project.image.files.tiff.ifd.Tags.TagName;
 import com.project.image.files.tiff.util.ByteBufferReader;
 import com.project.image.files.tiff.util.BytesConverter;
 

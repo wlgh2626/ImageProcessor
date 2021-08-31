@@ -4,9 +4,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-
-
-public class TagEntry {
+public class Tags {
 	public static interface Tag {
 		public int getValue();
 	}
@@ -20,6 +18,77 @@ public class TagEntry {
 
 		public TagImpl(int value) {
 			this.value = value;
+		}
+	}
+	
+	public enum TagName { // TAG
+		UNKNOWN(-1), NEW_SUBFILE_TYPE(254), SUBFILE_TYPE(255), IMAGE_WIDTH(256), IMAGE_LENGTH(257),
+		BITS_PER_SAMPLE(258), COMPRESSION(259), PHOTOMETRIC_INTERPRETATION(262), THRESHOLDING(263), CELL_WIDTH(264),
+		CELL_LENGTH(265), FILL_ORDER(266), IMAGE_DESCRIPTION(270), MAKE(271), MODEL(272), STRIPS_OFF_SETS(273),
+		ORIENTATION(274), SAMPLES_PER_PIXEL(277), ROWS_PER_STRIP(278), STRIP_BYTE_COUNTS(279), MIN_SAMPLE_VALUE(280),
+		MAX_SAMPLE_VALUE(281), X_RESOLUTION(282), Y_RESOLUTION(283), PLANAR_CONFIGURATION(284), FREE_OFFSETS(288),
+		FREE_BYTE_COUNTS(289), GARY_RESPONSE_UNIT(290), GRAY_RESPONSE_CURVE(291), RESOLUTION_UNIT(296), SOFTWARE(305),
+		HOST_COMPUTER(316), COLOR_MAP(320), EXTRA_SAMPLES(338);
+
+		private final int tagNumber;
+
+		private TagName(int tagNumber) {
+			this.tagNumber = tagNumber;
+		}
+
+		public int getTagNumber() {
+			return tagNumber;
+		}
+
+		private static Map<Integer, TagName> iToName = new HashMap<Integer, TagName>();
+		static {
+			for (TagName name : TagName.values()) {
+				iToName.put(name.getTagNumber(), name);
+			}
+		}
+
+		public static TagName iToName(int value) {
+			return iToName.containsKey(value) ? iToName.get(value) : UNKNOWN;
+		}
+
+	}
+	
+	public enum FieldType{
+		BYTE(1,1),
+		ASCII(2,1),
+		SHORT(3,2),
+		LONG(4,4),
+		RATIONAL(5,8),
+		SBYTE(6,1),
+		UNDEFINED(7,1),
+		SSHORT(8,2),
+		SLONG(9,4),
+		SRATIONAL(10,8),
+		FLOAT(11,4),
+		DOUBLE(12,8);
+		
+		private static Map<Integer, FieldType> intToFieldType = new HashMap<Integer, FieldType>();
+		static {
+			for(FieldType name : FieldType.values()) {
+				intToFieldType.put(name.getValue(), name);
+			}
+		}
+		public static FieldType iToField(int value) {
+			return intToFieldType.get(value);
+		}
+		
+		private int value;
+		private int byteLength;
+		private FieldType(int value, int byteLength) {
+			this.value = value;
+			this.byteLength = byteLength;
+		}
+		
+		public int getValue() {
+		    return value;
+		}
+		public int getLength() {
+			return byteLength;
 		}
 	}
 
@@ -86,7 +155,7 @@ public class TagEntry {
 			return tag.getValue();
 		}
 	}
-
+	
 	static Map<Integer, Tag> buildMap(Tag[] tagEntry) {
 		HashMap<Integer, Tag> iToTag = new HashMap<Integer, Tag>();
 		for (Tag t : tagEntry) {
@@ -94,4 +163,6 @@ public class TagEntry {
 		}
 		return iToTag;
 	}
+	
+	
 }
