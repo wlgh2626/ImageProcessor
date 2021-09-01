@@ -3,7 +3,6 @@ package com.project.image.files.tiff;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
 import com.project.image.files.tiff.header.Header;
 import com.project.image.files.tiff.ifd.ImageFileDirectory;
 import com.project.image.files.tiff.ifd.Tags.TagName;
@@ -19,17 +18,21 @@ public class Tiff {
 	public Tiff(byte[] data) throws Exception {
 		this.data = data;
 		header = new Header(Arrays.copyOfRange(data, 0, 8));
-
+		int currentOffset = header.getOffset();
+		
 		ImageFileDirectory currentIFD;
 		Image currentImage;
 		do {
-			currentIFD = new ImageFileDirectory(data, header.getOffset(), header.getBufferReader());
-			currentImage = new Image.ImageBuilder().length(currentIFD.tagToValue(TagName.IMAGE_LENGTH).get(0))
-					.width(currentIFD.tagToValue(TagName.IMAGE_LENGTH).get(0)).build();
+			currentIFD = new ImageFileDirectory(data, currentOffset, header.getBufferReader());
+			currentImage = new Image.Builder(data)
+								.length(currentIFD.tagToValue(TagName.IMAGE_LENGTH).get(0))
+								.width(currentIFD.tagToValue(TagName.IMAGE_WIDTH).get(0))
+								.build();
 
 			ifdList.add(currentIFD);
 			imageList.add(currentImage);
-		} while (currentIFD.getNextOffset() != 0);
+			currentOffset = currentIFD.getNextOffset();
+		} while (currentOffset != 0);
 
 	}
 

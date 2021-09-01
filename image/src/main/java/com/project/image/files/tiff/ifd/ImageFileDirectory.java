@@ -44,4 +44,13 @@ public class ImageFileDirectory {
 	public ArrayList<Integer> tagToValue(TagName name) {
 		return tagValue.get(name).getValues();
 	}
+
+	@Override
+	public String toString() {
+		String s = "";
+		for (Entry entry : tagValue.values()) {
+			s += entry.toString() + "\n";
+		}
+		return s;
+	}
 }

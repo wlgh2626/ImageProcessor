@@ -9,7 +9,6 @@ import org.junit.Test;
 
 import com.project.image.files.FileTypes.FileType;
 import com.project.image.files.tiff.header.Header;
-import com.project.image.files.tiff.util.ByteBufferReader;
 import com.project.image.files.tiff.util.ByteBufferReader.ByteOrder;
 public class HeaderTest {
 	File balloonsFile = new File(System.getProperty("user.dir") + "/tiff/balloons.tif");

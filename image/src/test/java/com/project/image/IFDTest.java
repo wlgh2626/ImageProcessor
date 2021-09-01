@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import org.junit.Test;
 
 import com.project.image.files.tiff.Tiff;
+import com.project.image.files.tiff.ifd.ImageFileDirectory;
 
 public class IFDTest {
 	File balloonsFile = new File(Tiff.TIFF_DIRECTORY + "/balloons.tif");
@@ -19,6 +20,9 @@ public class IFDTest {
 	public void balloonsIFDTest() throws Exception {
 		byte[] balloonsData = Files.readAllBytes(columnsFile.toPath());
 		Tiff tiff = new Tiff(balloonsData);
+		for (ImageFileDirectory ifd : tiff.getIFDList()) {
+			System.out.println(ifd.toString());
+		}
 
 	}
 }
