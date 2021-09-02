@@ -27,6 +27,8 @@ public class Tiff {
 			currentImage = new Image.Builder(data)
 								.length(currentIFD.tagToValue(TagName.IMAGE_LENGTH).get(0))
 								.width(currentIFD.tagToValue(TagName.IMAGE_WIDTH).get(0))
+								.byteCounts(currentIFD.tagToValue(TagName.STRIP_BYTE_COUNTS))
+								.offsets(currentIFD.tagToValue(TagName.STRIPS_OFF_SETS))
 								.build();
 
 			ifdList.add(currentIFD);

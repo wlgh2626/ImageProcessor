@@ -41,7 +41,7 @@ public class ImageFileDirectory {
 		return numEntries;
 	}
 
-	public ArrayList<Integer> tagToValue(TagName name) {
+	public ArrayList<Number> tagToValue(TagName name) {
 		return tagValue.get(name).getValues();
 	}
 

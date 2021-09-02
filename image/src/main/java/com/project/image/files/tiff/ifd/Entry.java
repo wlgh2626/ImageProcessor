@@ -16,7 +16,7 @@ public class Entry { // 12 bytes long
 	private TagName tagName; // 0 - 1 2bytes long
 	private FieldType fieldType; // 2 - 3 2bytes long
 	private int count; // 4 - 7 4bytes long
-	private ArrayList<Integer> values = new ArrayList<Integer>();
+	private ArrayList<Number> values = new ArrayList<Number>();
 
 	public Entry(Builder builder) {
 		tagName = builder.tagName;
@@ -33,8 +33,8 @@ public class Entry { // 12 bytes long
 		return fieldType;
 	}
 
-	public ArrayList<Integer> getValues() {
-		return new ArrayList<Integer>(List.copyOf(values));
+	public ArrayList<Number> getValues() {
+		return new ArrayList<Number>(List.copyOf(values));
 	}
 
 	public int getCount() {
@@ -53,7 +53,7 @@ public class Entry { // 12 bytes long
 		private final ByteBufferReader reader;
 		TagName tagName;
 		FieldType fieldType;
-		ArrayList<Integer> values;
+		ArrayList<Number> values;
 
 		public Builder(byte[] data, ByteBufferReader reader) {
 			this.data = data;
@@ -63,7 +63,7 @@ public class Entry { // 12 bytes long
 		public Entry build(byte[] IFDData) {
 			tagName = TagName.iToName(toUInt(IFDData, 0, 2));
 			fieldType = FieldType.iToField(toUInt(IFDData, 2, 4));
-			values = new ArrayList<Integer>();
+			values = new ArrayList<Number>();
 			int count = toUInt(IFDData, 4, 8);
 
 			int currentIndex = 8;
