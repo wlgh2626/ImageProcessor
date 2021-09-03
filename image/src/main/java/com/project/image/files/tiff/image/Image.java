@@ -1,29 +1,39 @@
 package com.project.image.files.tiff.image;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import com.project.image.files.tiff.util.ByteBufferReader;
-
 public class Image {
 	
-	private int width;
-	private int length;
+	private int width;	//Number of columns								  AKA Length
+	private int length; //Number of rows as decribed in TIF documentation AKA Heigth
 	private Pixel[][] pixels;
+	BufferedImage image;
 	public Image(Builder builder) {
 		width = builder.width;
 		length = builder.length;
-		pixels = new Pixel[width][length];
-		for(int i = 0 ; i < width ; i++) {
-			int begin = i*length;
-			int end = (i+1)*length; 
+		pixels = new Pixel[length][width];
+		for(int i = 0 ; i < length ; i++) {
+			int begin = i*width;
+			int end = (i+1)*width; 
 			pixels[i] =  builder.pixels.subList(begin,end).toArray(new Pixel[0]);
 		}
+		
+		image = new BufferedImage(width , length , BufferedImage.TYPE_INT_RGB);
+		for(int y = 0 ; y < length ; y ++) {
+			for(int x = 0 ; x < width ; x ++) {
+				image.setRGB(x, y, pixels[y][x].getRGB());
+			}
+		}
+	}
+	
+	public BufferedImage getImage() {
+		return image;
 	}
 	
 	public static class Builder{
 		private byte[] data;
-		private ByteBufferReader reader;
 		private ArrayList<Pixel> pixels;
 		
 		private ArrayList<Integer> offsets; 

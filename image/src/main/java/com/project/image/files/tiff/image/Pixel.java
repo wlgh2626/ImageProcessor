@@ -10,6 +10,10 @@ public class Pixel {
 		blue = builder.blue;
 	}
 	
+	public int getRGB() {
+		return (red<<16) +  (green<<8) + blue;
+	}
+	
 	public static class Builder{
 		private int red;
 		private int green;
